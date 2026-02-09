@@ -484,14 +484,14 @@ export default function BasketballPicksPage() {
                           </div>
                         </div>
 
-                        {/* Teams */}
-                        <div className="p-4 sm:p-6">
-                          <div className="flex items-stretch gap-3 sm:gap-4">
+                        {/* Teams - Compact Layout */}
+                        <div className="p-3 sm:p-4">
+                          <div className="flex items-center gap-2">
                             {/* Away Team */}
                             <button
                               onClick={() => !gameStarted && !isCompleted && submitPick(game.id, game.awayTeam.id)}
                               disabled={gameStarted || isCompleted || submitting === game.id}
-                              className={`flex-1 p-3 sm:p-4 rounded-xl border-2 transition-all min-h-[140px] sm:min-h-[160px] ${
+                              className={`flex-1 p-2 sm:p-3 rounded-lg border-2 transition-all ${
                                 userPick?.pickedTeamId === game.awayTeam.id
                                   ? isCompleted
                                     ? winner === game.awayTeam.id
@@ -503,56 +503,55 @@ export default function BasketballPicksPage() {
                                 isCompleted && winner === game.awayTeam.id ? "opacity-100" : isCompleted ? "opacity-60" : ""
                               }`}
                             >
-                              <div className="text-center h-full flex flex-col justify-center">
-                                {game.awayTeam.ranking && (
-                                  <div className="text-orange-500 text-xs font-bold mb-1">#{game.awayTeam.ranking}</div>
-                                )}
+                              <div className="flex items-center gap-2 sm:gap-3">
                                 <div
-                                  className="w-10 h-10 sm:w-12 sm:h-12 rounded-full mx-auto mb-2 flex items-center justify-center text-white font-black text-xs sm:text-sm"
+                                  className="w-9 h-9 sm:w-10 sm:h-10 rounded-full flex-shrink-0 flex items-center justify-center text-white font-black text-[10px] sm:text-xs"
                                   style={{ backgroundColor: game.awayTeam.primaryColor }}
                                 >
                                   {game.awayTeam.abbreviation}
                                 </div>
-                                <div className="font-bold text-white text-sm sm:text-base">{game.awayTeam.shortName}</div>
-                                <div className="text-xs text-zinc-500">
-                                  {game.awayTeam.wins}-{game.awayTeam.losses}
+                                <div className="flex-1 min-w-0 text-left">
+                                  <div className="flex items-center gap-1">
+                                    {game.awayTeam.ranking && (
+                                      <span className="text-orange-500 text-[10px] font-bold">#{game.awayTeam.ranking}</span>
+                                    )}
+                                    <span className="font-bold text-white text-xs sm:text-sm truncate">{game.awayTeam.shortName}</span>
+                                  </div>
+                                  <div className="flex items-center gap-2 text-[10px] sm:text-xs text-zinc-500">
+                                    <span>{game.awayTeam.wins}-{game.awayTeam.losses}</span>
+                                    {game.spread !== null && (
+                                      <span className="text-yellow-500 font-mono">{formatSpread(game.spread, false)}</span>
+                                    )}
+                                  </div>
+                                  {game.awayTeam.lastFive && (
+                                    <div className="flex gap-0.5 mt-1">
+                                      {game.awayTeam.lastFive.split("").map((r, i) => (
+                                        <span key={i} className={`w-3 h-3 text-[8px] font-bold flex items-center justify-center rounded ${r === "W" ? "bg-green-500/30 text-green-400" : "bg-red-500/30 text-red-400"}`}>{r}</span>
+                                      ))}
+                                    </div>
+                                  )}
                                 </div>
-                                {renderLastFive(game.awayTeam.lastFive)}
-                                {game.spread !== null && (
-                                  <div className="text-xs text-zinc-400 mt-1 font-mono">
-                                    {formatSpread(game.spread, false)}
-                                  </div>
-                                )}
-                                {isCompleted && (
-                                  <div className={`text-2xl font-black mt-2 ${winner === game.awayTeam.id ? "text-green-400" : "text-zinc-500"}`}>
+                                {(isCompleted || isLive) && game.awayScore !== null && (
+                                  <div className={`text-xl sm:text-2xl font-black ${isCompleted && winner === game.awayTeam.id ? "text-green-400" : "text-zinc-400"}`}>
                                     {game.awayScore}
-                                  </div>
-                                )}
-                                {isLive && game.awayScore !== null && (
-                                  <div className="text-xl font-black mt-2 text-white">
-                                    {game.awayScore}
-                                  </div>
-                                )}
-                                {userPick?.pickedTeamId === game.awayTeam.id && (
-                                  <div className={`mt-2 text-xs font-bold uppercase ${
-                                    isCompleted
-                                      ? winner === game.awayTeam.id ? "text-green-400" : "text-red-400"
-                                      : "text-orange-500"
-                                  }`}>
-                                    Your Pick
                                   </div>
                                 )}
                               </div>
+                              {userPick?.pickedTeamId === game.awayTeam.id && (
+                                <div className={`text-[10px] font-bold uppercase mt-1 text-center ${isCompleted ? (winner === game.awayTeam.id ? "text-green-400" : "text-red-400") : "text-orange-500"}`}>
+                                  Your Pick
+                                </div>
+                              )}
                             </button>
 
                             {/* VS */}
-                            <div className="flex items-center text-zinc-600 font-bold text-lg">@</div>
+                            <div className="text-zinc-600 font-bold text-sm">@</div>
 
                             {/* Home Team */}
                             <button
                               onClick={() => !gameStarted && !isCompleted && submitPick(game.id, game.homeTeam.id)}
                               disabled={gameStarted || isCompleted || submitting === game.id}
-                              className={`flex-1 p-3 sm:p-4 rounded-xl border-2 transition-all min-h-[140px] sm:min-h-[160px] ${
+                              className={`flex-1 p-2 sm:p-3 rounded-lg border-2 transition-all ${
                                 userPick?.pickedTeamId === game.homeTeam.id
                                   ? isCompleted
                                     ? winner === game.homeTeam.id
@@ -564,46 +563,45 @@ export default function BasketballPicksPage() {
                                 isCompleted && winner === game.homeTeam.id ? "opacity-100" : isCompleted ? "opacity-60" : ""
                               }`}
                             >
-                              <div className="text-center h-full flex flex-col justify-center">
-                                {game.homeTeam.ranking && (
-                                  <div className="text-orange-500 text-xs font-bold mb-1">#{game.homeTeam.ranking}</div>
-                                )}
+                              <div className="flex items-center gap-2 sm:gap-3">
                                 <div
-                                  className="w-10 h-10 sm:w-12 sm:h-12 rounded-full mx-auto mb-2 flex items-center justify-center text-white font-black text-xs sm:text-sm"
+                                  className="w-9 h-9 sm:w-10 sm:h-10 rounded-full flex-shrink-0 flex items-center justify-center text-white font-black text-[10px] sm:text-xs"
                                   style={{ backgroundColor: game.homeTeam.primaryColor }}
                                 >
                                   {game.homeTeam.abbreviation}
                                 </div>
-                                <div className="font-bold text-white text-sm sm:text-base">{game.homeTeam.shortName}</div>
-                                <div className="text-xs text-zinc-500">
-                                  {game.homeTeam.wins}-{game.homeTeam.losses}
+                                <div className="flex-1 min-w-0 text-left">
+                                  <div className="flex items-center gap-1">
+                                    {game.homeTeam.ranking && (
+                                      <span className="text-orange-500 text-[10px] font-bold">#{game.homeTeam.ranking}</span>
+                                    )}
+                                    <span className="font-bold text-white text-xs sm:text-sm truncate">{game.homeTeam.shortName}</span>
+                                  </div>
+                                  <div className="flex items-center gap-2 text-[10px] sm:text-xs text-zinc-500">
+                                    <span>{game.homeTeam.wins}-{game.homeTeam.losses}</span>
+                                    {game.spread !== null && (
+                                      <span className="text-yellow-500 font-mono">{formatSpread(game.spread, true)}</span>
+                                    )}
+                                  </div>
+                                  {game.homeTeam.lastFive && (
+                                    <div className="flex gap-0.5 mt-1">
+                                      {game.homeTeam.lastFive.split("").map((r, i) => (
+                                        <span key={i} className={`w-3 h-3 text-[8px] font-bold flex items-center justify-center rounded ${r === "W" ? "bg-green-500/30 text-green-400" : "bg-red-500/30 text-red-400"}`}>{r}</span>
+                                      ))}
+                                    </div>
+                                  )}
                                 </div>
-                                {renderLastFive(game.homeTeam.lastFive)}
-                                {game.spread !== null && (
-                                  <div className="text-xs text-zinc-400 mt-1 font-mono">
-                                    {formatSpread(game.spread, true)}
-                                  </div>
-                                )}
-                                {isCompleted && (
-                                  <div className={`text-2xl font-black mt-2 ${winner === game.homeTeam.id ? "text-green-400" : "text-zinc-500"}`}>
+                                {(isCompleted || isLive) && game.homeScore !== null && (
+                                  <div className={`text-xl sm:text-2xl font-black ${isCompleted && winner === game.homeTeam.id ? "text-green-400" : "text-zinc-400"}`}>
                                     {game.homeScore}
-                                  </div>
-                                )}
-                                {isLive && game.homeScore !== null && (
-                                  <div className="text-xl font-black mt-2 text-white">
-                                    {game.homeScore}
-                                  </div>
-                                )}
-                                {userPick?.pickedTeamId === game.homeTeam.id && (
-                                  <div className={`mt-2 text-xs font-bold uppercase ${
-                                    isCompleted
-                                      ? winner === game.homeTeam.id ? "text-green-400" : "text-red-400"
-                                      : "text-orange-500"
-                                  }`}>
-                                    Your Pick
                                   </div>
                                 )}
                               </div>
+                              {userPick?.pickedTeamId === game.homeTeam.id && (
+                                <div className={`text-[10px] font-bold uppercase mt-1 text-center ${isCompleted ? (winner === game.homeTeam.id ? "text-green-400" : "text-red-400") : "text-orange-500"}`}>
+                                  Your Pick
+                                </div>
+                              )}
                             </button>
                           </div>
                         </div>
