@@ -5,17 +5,17 @@ export default async function Home() {
   const session = await auth();
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-zinc-900 to-zinc-950">
+    <div className="min-h-screen bg-zinc-950">
       {/* Navigation */}
-      <nav className="flex items-center justify-between px-6 py-4 max-w-7xl mx-auto">
-        <Link href="/" className="text-2xl font-bold text-white">
-          Sports<span className="text-emerald-500">Predictions</span>
+      <nav className="flex items-center justify-between px-6 py-4 max-w-7xl mx-auto relative z-10">
+        <Link href="/" className="text-2xl font-black tracking-tight text-white">
+          SPORT<span className="text-orange-500">PREDICTIONS</span>
         </Link>
         <div className="flex items-center gap-4">
           {session ? (
             <Link
               href="/dashboard"
-              className="px-4 py-2 bg-emerald-600 hover:bg-emerald-700 rounded-lg font-medium transition-colors"
+              className="px-5 py-2.5 bg-orange-500 hover:bg-orange-600 rounded-lg font-bold text-sm uppercase tracking-wide transition-colors"
             >
               Dashboard
             </Link>
@@ -23,13 +23,13 @@ export default async function Home() {
             <>
               <Link
                 href="/login"
-                className="px-4 py-2 text-zinc-300 hover:text-white transition-colors"
+                className="px-4 py-2 text-zinc-300 hover:text-white font-medium transition-colors"
               >
                 Log In
               </Link>
               <Link
                 href="/register"
-                className="px-4 py-2 bg-emerald-600 hover:bg-emerald-700 rounded-lg font-medium transition-colors"
+                className="px-5 py-2.5 bg-orange-500 hover:bg-orange-600 rounded-lg font-bold text-sm uppercase tracking-wide transition-colors"
               >
                 Sign Up
               </Link>
@@ -39,116 +39,195 @@ export default async function Home() {
       </nav>
 
       {/* Hero Section */}
-      <main className="max-w-7xl mx-auto px-6 pt-20 pb-32">
-        <div className="text-center">
-          <h1 className="text-5xl md:text-7xl font-bold mb-6">
-            Predict. Compete.{" "}
-            <span className="text-emerald-500">Win.</span>
-          </h1>
-          <p className="text-xl text-zinc-400 max-w-2xl mx-auto mb-10">
-            Make your picks for college football and basketball games.
-            Track your record, compete against friends, and climb the leaderboard.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link
-              href="/register"
-              className="px-8 py-4 bg-emerald-600 hover:bg-emerald-700 rounded-lg font-semibold text-lg transition-colors"
-            >
-              Get Started Free
-            </Link>
-            <Link
-              href="#features"
-              className="px-8 py-4 border border-zinc-700 hover:border-zinc-500 rounded-lg font-semibold text-lg transition-colors"
-            >
-              Learn More
-            </Link>
+      <main className="hero-gradient stadium-lights">
+        <div className="max-w-7xl mx-auto px-6 pt-16 pb-24 relative z-10">
+          <div className="text-center">
+            {/* Live badge */}
+            <div className="inline-flex items-center gap-2 px-4 py-2 bg-zinc-800/80 rounded-full mb-8 border border-zinc-700">
+              <span className="w-2 h-2 bg-green-500 rounded-full pulse-live"></span>
+              <span className="text-sm font-medium text-zinc-300">2025 Season Now Live</span>
+            </div>
+
+            <h1 className="text-5xl md:text-7xl lg:text-8xl font-black mb-6 tracking-tight leading-none">
+              <span className="text-white">MAKE YOUR</span>
+              <br />
+              <span className="text-orange-500 glow-orange">PICKS</span>
+            </h1>
+
+            <p className="text-xl md:text-2xl text-zinc-400 max-w-2xl mx-auto mb-10 font-medium">
+              Predict college football & basketball winners.
+              <br className="hidden sm:block" />
+              <span className="text-white">Compete. Track. Dominate.</span>
+            </p>
+
+            <div className="flex flex-col sm:flex-row gap-4 justify-center mb-16">
+              <Link
+                href="/register"
+                className="px-8 py-4 bg-orange-500 hover:bg-orange-600 rounded-xl font-bold text-lg uppercase tracking-wide transition-all hover:scale-105"
+              >
+                Start Picking Free
+              </Link>
+              <Link
+                href="#how-it-works"
+                className="px-8 py-4 bg-zinc-800 hover:bg-zinc-700 border border-zinc-700 rounded-xl font-bold text-lg transition-colors"
+              >
+                How It Works
+              </Link>
+            </div>
+
+            {/* Stats preview */}
+            <div className="grid grid-cols-3 gap-4 max-w-lg mx-auto">
+              <div className="bg-zinc-900/80 backdrop-blur rounded-xl p-4 border border-zinc-800">
+                <div className="text-3xl font-black text-orange-500 scoreboard">1.2K+</div>
+                <div className="text-xs text-zinc-500 uppercase tracking-wide">Active Pickers</div>
+              </div>
+              <div className="bg-zinc-900/80 backdrop-blur rounded-xl p-4 border border-zinc-800">
+                <div className="text-3xl font-black text-blue-500 scoreboard">50K+</div>
+                <div className="text-xs text-zinc-500 uppercase tracking-wide">Picks Made</div>
+              </div>
+              <div className="bg-zinc-900/80 backdrop-blur rounded-xl p-4 border border-zinc-800">
+                <div className="text-3xl font-black text-green-500 scoreboard">68%</div>
+                <div className="text-xs text-zinc-500 uppercase tracking-wide">Avg Accuracy</div>
+              </div>
+            </div>
           </div>
         </div>
 
-        {/* Features Section */}
-        <section id="features" className="mt-32">
-          <h2 className="text-3xl font-bold text-center mb-12">
-            How It Works
-          </h2>
+        {/* Divider */}
+        <div className="h-px bg-gradient-to-r from-transparent via-zinc-700 to-transparent"></div>
+      </main>
+
+      {/* Sports Cards */}
+      <section className="py-20 bg-zinc-950">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="text-center mb-12">
+            <h2 className="text-sm font-bold text-orange-500 uppercase tracking-widest mb-3">Covered Sports</h2>
+            <p className="text-3xl md:text-4xl font-black text-white">Choose Your Game</p>
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+            {/* Football Card */}
+            <div className="sport-card animated-border rounded-2xl p-8 bg-zinc-900">
+              <div className="flex items-start justify-between mb-6">
+                <div className="text-6xl">🏈</div>
+                <span className="px-3 py-1 bg-orange-500/20 text-orange-400 text-xs font-bold uppercase rounded-full">
+                  In Season
+                </span>
+              </div>
+              <h3 className="text-2xl font-black text-white mb-2">College Football</h3>
+              <p className="text-zinc-400 mb-6">
+                Every FBS game, every Saturday. From Week 0 through the National Championship.
+              </p>
+              <div className="flex items-center gap-4 text-sm">
+                <div className="flex items-center gap-2">
+                  <span className="w-2 h-2 bg-green-500 rounded-full"></span>
+                  <span className="text-zinc-500">Bowl Season</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <span className="w-2 h-2 bg-blue-500 rounded-full"></span>
+                  <span className="text-zinc-500">134 Teams</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Basketball Card */}
+            <div className="sport-card animated-border rounded-2xl p-8 bg-zinc-900">
+              <div className="flex items-start justify-between mb-6">
+                <div className="text-6xl">🏀</div>
+                <span className="px-3 py-1 bg-blue-500/20 text-blue-400 text-xs font-bold uppercase rounded-full">
+                  Coming Soon
+                </span>
+              </div>
+              <h3 className="text-2xl font-black text-white mb-2">College Basketball</h3>
+              <p className="text-zinc-400 mb-6">
+                Full season coverage. Conference play through March Madness brackets.
+              </p>
+              <div className="flex items-center gap-4 text-sm">
+                <div className="flex items-center gap-2">
+                  <span className="w-2 h-2 bg-orange-500 rounded-full"></span>
+                  <span className="text-zinc-500">March Madness</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <span className="w-2 h-2 bg-purple-500 rounded-full"></span>
+                  <span className="text-zinc-500">363 Teams</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* How It Works */}
+      <section id="how-it-works" className="py-20 bg-zinc-900">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="text-center mb-16">
+            <h2 className="text-sm font-bold text-orange-500 uppercase tracking-widest mb-3">How It Works</h2>
+            <p className="text-3xl md:text-4xl font-black text-white">Three Steps to Glory</p>
+          </div>
+
           <div className="grid md:grid-cols-3 gap-8">
-            <div className="bg-zinc-900 p-8 rounded-xl border border-zinc-800">
-              <div className="w-12 h-12 bg-emerald-600/20 rounded-lg flex items-center justify-center mb-4">
-                <svg className="w-6 h-6 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
-                </svg>
+            <div className="text-center">
+              <div className="w-16 h-16 bg-orange-500 rounded-2xl flex items-center justify-center mx-auto mb-6 text-2xl font-black">
+                1
               </div>
-              <h3 className="text-xl font-semibold mb-2">Make Your Picks</h3>
+              <h3 className="text-xl font-bold text-white mb-3">Pick Your Winners</h3>
               <p className="text-zinc-400">
-                Browse upcoming games and select your winners. Lock in picks before kickoff.
+                Browse this week&apos;s games. Select who you think will win. Lock in before kickoff.
               </p>
             </div>
-            <div className="bg-zinc-900 p-8 rounded-xl border border-zinc-800">
-              <div className="w-12 h-12 bg-emerald-600/20 rounded-lg flex items-center justify-center mb-4">
-                <svg className="w-6 h-6 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
-                </svg>
+            <div className="text-center">
+              <div className="w-16 h-16 bg-blue-500 rounded-2xl flex items-center justify-center mx-auto mb-6 text-2xl font-black">
+                2
               </div>
-              <h3 className="text-xl font-semibold mb-2">Track Your Record</h3>
+              <h3 className="text-xl font-bold text-white mb-3">Watch & Track</h3>
               <p className="text-zinc-400">
-                Watch your predictions play out. See your accuracy, streaks, and stats over time.
+                Follow your picks in real-time. See results update as games finish.
               </p>
             </div>
-            <div className="bg-zinc-900 p-8 rounded-xl border border-zinc-800">
-              <div className="w-12 h-12 bg-emerald-600/20 rounded-lg flex items-center justify-center mb-4">
-                <svg className="w-6 h-6 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z" />
-                </svg>
+            <div className="text-center">
+              <div className="w-16 h-16 bg-green-500 rounded-2xl flex items-center justify-center mx-auto mb-6 text-2xl font-black">
+                3
               </div>
-              <h3 className="text-xl font-semibold mb-2">Compete & Win</h3>
+              <h3 className="text-xl font-bold text-white mb-3">Climb the Board</h3>
               <p className="text-zinc-400">
-                Join leaderboards, create pick groups with friends, and prove you know your stuff.
+                Earn points for correct picks. Rise up the leaderboard. Prove you&apos;re the best.
               </p>
             </div>
           </div>
-        </section>
+        </div>
+      </section>
 
-        {/* Sports Section */}
-        <section className="mt-32">
-          <h2 className="text-3xl font-bold text-center mb-12">
-            Covered Sports
+      {/* CTA Section */}
+      <section className="py-24 bg-zinc-950 relative overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-r from-orange-500/10 via-transparent to-blue-500/10"></div>
+        <div className="max-w-4xl mx-auto px-6 text-center relative z-10">
+          <h2 className="text-4xl md:text-5xl font-black text-white mb-4">
+            Ready to Prove Your
+            <span className="text-orange-500"> Picks?</span>
           </h2>
-          <div className="grid md:grid-cols-2 gap-8 max-w-3xl mx-auto">
-            <div className="bg-zinc-900 p-8 rounded-xl border border-zinc-800 text-center">
-              <div className="text-5xl mb-4">🏈</div>
-              <h3 className="text-2xl font-semibold mb-2">College Football</h3>
-              <p className="text-zinc-400">
-                FBS games every Saturday. Bowl season and playoffs included.
-              </p>
-            </div>
-            <div className="bg-zinc-900 p-8 rounded-xl border border-zinc-800 text-center">
-              <div className="text-5xl mb-4">🏀</div>
-              <h3 className="text-2xl font-semibold mb-2">College Basketball</h3>
-              <p className="text-zinc-400">
-                Regular season through March Madness. Every game counts.
-              </p>
-            </div>
-          </div>
-        </section>
-
-        {/* CTA Section */}
-        <section className="mt-32 text-center">
-          <h2 className="text-4xl font-bold mb-4">Ready to Make Your Picks?</h2>
-          <p className="text-xl text-zinc-400 mb-8">
-            Join now and start predicting today.
+          <p className="text-xl text-zinc-400 mb-10">
+            Join thousands of fans making their predictions every week.
           </p>
           <Link
             href="/register"
-            className="inline-block px-8 py-4 bg-emerald-600 hover:bg-emerald-700 rounded-lg font-semibold text-lg transition-colors"
+            className="inline-block px-10 py-5 bg-orange-500 hover:bg-orange-600 rounded-xl font-black text-xl uppercase tracking-wide transition-all hover:scale-105"
           >
             Create Free Account
           </Link>
-        </section>
-      </main>
+        </div>
+      </section>
 
       {/* Footer */}
-      <footer className="border-t border-zinc-800 py-8">
-        <div className="max-w-7xl mx-auto px-6 text-center text-zinc-500">
-          <p>&copy; 2025 Sports Predictions. All rights reserved.</p>
+      <footer className="border-t border-zinc-800 py-8 bg-zinc-950">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="flex flex-col md:flex-row items-center justify-between gap-4">
+            <div className="text-xl font-black tracking-tight text-white">
+              SPORT<span className="text-orange-500">PREDICTIONS</span>
+            </div>
+            <p className="text-zinc-500 text-sm">
+              &copy; 2025 Sport Predictions. All rights reserved.
+            </p>
+          </div>
         </div>
       </footer>
     </div>

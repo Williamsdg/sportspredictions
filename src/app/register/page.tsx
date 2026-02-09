@@ -55,39 +55,39 @@ export default function RegisterPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-zinc-900 to-zinc-950 flex items-center justify-center px-4">
+    <div className="min-h-screen bg-zinc-950 flex items-center justify-center px-4 py-12">
       <div className="w-full max-w-md">
         <div className="text-center mb-8">
-          <Link href="/" className="text-2xl font-bold text-white">
-            Sports<span className="text-emerald-500">Predictions</span>
+          <Link href="/" className="text-2xl font-black tracking-tight text-white">
+            SPORT<span className="text-orange-500">PREDICTIONS</span>
           </Link>
-          <h1 className="text-3xl font-bold mt-6 mb-2">Create an account</h1>
-          <p className="text-zinc-400">Start making your predictions today</p>
+          <h1 className="text-3xl font-black mt-8 mb-2 text-white">Join the Game</h1>
+          <p className="text-zinc-400">Create your account and start picking</p>
         </div>
 
         <form onSubmit={handleSubmit} className="bg-zinc-900 p-8 rounded-xl border border-zinc-800">
           {error && (
-            <div className="bg-red-500/10 border border-red-500/50 text-red-500 px-4 py-3 rounded-lg mb-6">
+            <div className="bg-red-500/10 border border-red-500/50 text-red-400 px-4 py-3 rounded-lg mb-6 text-sm font-medium">
               {error}
             </div>
           )}
 
           <div className="mb-4">
-            <label htmlFor="name" className="block text-sm font-medium mb-2">
-              Name
+            <label htmlFor="name" className="block text-xs font-bold uppercase tracking-wide text-zinc-400 mb-2">
+              Display Name
             </label>
             <input
               type="text"
               id="name"
               value={name}
               onChange={(e) => setName(e.target.value)}
-              className="w-full px-4 py-3 bg-zinc-800 border border-zinc-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent"
+              className="w-full px-4 py-3 bg-zinc-800 border border-zinc-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent text-white"
               placeholder="John Doe"
             />
           </div>
 
           <div className="mb-4">
-            <label htmlFor="username" className="block text-sm font-medium mb-2">
+            <label htmlFor="username" className="block text-xs font-bold uppercase tracking-wide text-zinc-400 mb-2">
               Username
             </label>
             <input
@@ -95,14 +95,14 @@ export default function RegisterPage() {
               id="username"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
-              className="w-full px-4 py-3 bg-zinc-800 border border-zinc-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent"
-              placeholder="johndoe"
+              className="w-full px-4 py-3 bg-zinc-800 border border-zinc-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent text-white"
+              placeholder="pickmaster99"
               required
             />
           </div>
 
           <div className="mb-4">
-            <label htmlFor="email" className="block text-sm font-medium mb-2">
+            <label htmlFor="email" className="block text-xs font-bold uppercase tracking-wide text-zinc-400 mb-2">
               Email
             </label>
             <input
@@ -110,14 +110,14 @@ export default function RegisterPage() {
               id="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="w-full px-4 py-3 bg-zinc-800 border border-zinc-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent"
+              className="w-full px-4 py-3 bg-zinc-800 border border-zinc-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent text-white"
               placeholder="you@example.com"
               required
             />
           </div>
 
           <div className="mb-6">
-            <label htmlFor="password" className="block text-sm font-medium mb-2">
+            <label htmlFor="password" className="block text-xs font-bold uppercase tracking-wide text-zinc-400 mb-2">
               Password
             </label>
             <input
@@ -125,18 +125,18 @@ export default function RegisterPage() {
               id="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="w-full px-4 py-3 bg-zinc-800 border border-zinc-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent"
+              className="w-full px-4 py-3 bg-zinc-800 border border-zinc-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent text-white"
               placeholder="••••••••"
               minLength={8}
               required
             />
-            <p className="text-sm text-zinc-500 mt-1">Minimum 8 characters</p>
+            <p className="text-xs text-zinc-500 mt-2">Minimum 8 characters</p>
           </div>
 
           <button
             type="submit"
             disabled={loading}
-            className="w-full py-3 bg-emerald-600 hover:bg-emerald-700 disabled:bg-emerald-600/50 rounded-lg font-semibold transition-colors"
+            className="w-full py-3 bg-orange-500 hover:bg-orange-600 disabled:bg-orange-500/50 rounded-lg font-bold uppercase tracking-wide transition-colors"
           >
             {loading ? "Creating account..." : "Create Account"}
           </button>
@@ -144,7 +144,7 @@ export default function RegisterPage() {
 
         <p className="text-center mt-6 text-zinc-400">
           Already have an account?{" "}
-          <Link href="/login" className="text-emerald-500 hover:text-emerald-400">
+          <Link href="/login" className="text-orange-500 hover:text-orange-400 font-bold">
             Sign in
           </Link>
         </p>
