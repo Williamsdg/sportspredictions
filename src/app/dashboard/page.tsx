@@ -85,22 +85,22 @@ export default async function DashboardPage() {
               Make Picks
             </Link>
           </div>
-          <div className="bg-zinc-900 p-6 rounded-xl border border-zinc-800 hover:border-blue-500/50 transition-colors">
+          <div className="bg-zinc-900 p-6 rounded-xl border border-zinc-800 hover:border-orange-500/50 transition-colors">
             <div className="flex items-center justify-between mb-4">
               <h2 className="text-xl font-bold text-white flex items-center gap-3">
                 <span className="text-3xl">🏀</span> College Basketball
               </h2>
-              <span className="px-3 py-1 bg-zinc-700 text-zinc-400 text-xs font-bold uppercase rounded-full">
-                Coming Soon
+              <span className="px-3 py-1 bg-green-500/20 text-green-400 text-xs font-bold uppercase rounded-full">
+                Live
               </span>
             </div>
-            <p className="text-zinc-400 mb-6">Basketball picks available November 2025</p>
-            <button
-              disabled
-              className="inline-block px-6 py-3 bg-zinc-700 text-zinc-500 rounded-lg font-bold text-sm uppercase tracking-wide cursor-not-allowed"
+            <p className="text-zinc-400 mb-6">Make your picks for this week&apos;s games</p>
+            <Link
+              href="/picks/basketball"
+              className="inline-block px-6 py-3 bg-orange-500 hover:bg-orange-600 rounded-lg font-bold text-sm uppercase tracking-wide transition-colors"
             >
-              Coming Soon
-            </button>
+              Make Picks
+            </Link>
           </div>
         </div>
 
