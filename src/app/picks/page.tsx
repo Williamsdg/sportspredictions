@@ -54,16 +54,21 @@ export default async function PicksPage() {
           </Link>
 
           {/* Basketball */}
-          <div className="bg-zinc-900 p-8 rounded-xl border border-zinc-800 opacity-60">
+          <Link
+            href="/picks/basketball"
+            className="bg-zinc-900 p-8 rounded-xl border border-zinc-800 hover:border-orange-500/50 transition-all hover:scale-[1.02] group"
+          >
             <div className="text-center">
               <div className="text-6xl mb-4">🏀</div>
-              <h2 className="text-2xl font-black text-white mb-2">College Basketball</h2>
-              <p className="text-zinc-400 mb-4">Coming November 2025</p>
-              <span className="inline-block px-4 py-2 bg-zinc-700 text-zinc-400 text-xs font-bold uppercase rounded-full">
-                Coming Soon
+              <h2 className="text-2xl font-black text-white mb-2 group-hover:text-orange-500 transition-colors">
+                College Basketball
+              </h2>
+              <p className="text-zinc-400 mb-4">Make your picks for this week&apos;s games</p>
+              <span className="inline-block px-4 py-2 bg-green-500/20 text-green-400 text-xs font-bold uppercase rounded-full">
+                Season Active
               </span>
             </div>
-          </div>
+          </Link>
         </div>
       </main>
     </div>

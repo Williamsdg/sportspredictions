@@ -1,5 +1,6 @@
 import { PrismaClient } from "@prisma/client";
 import { conferences } from "./teams";
+import { basketballConferences, sampleBasketballGames } from "./basketball-teams";
 
 const prisma = new PrismaClient();
 
@@ -124,7 +125,101 @@ async function main() {
     }
   }
 
-  console.log("Seed completed!");
+  // ========== BASKETBALL ==========
+  console.log("\n--- Seeding Basketball ---");
+
+  // Create 2025-26 Basketball season
+  const basketballSeason = await prisma.season.upsert({
+    where: {
+      sportId_year: {
+        sportId: basketball.id,
+        year: 2025,
+      },
+    },
+    update: { isActive: true },
+    create: {
+      sportId: basketball.id,
+      name: "2025-26",
+      year: 2025,
+      startDate: new Date("2025-11-01"),
+      endDate: new Date("2026-04-07"),
+      isActive: true,
+    },
+  });
+  console.log("Created basketball season:", basketballSeason.name);
+
+  // Create basketball teams
+  let bballTeamCount = 0;
+  for (const [conference, teams] of Object.entries(basketballConferences)) {
+    for (const team of teams) {
+      await prisma.team.upsert({
+        where: {
+          abbreviation_sportId: {
+            abbreviation: team.abbreviation,
+            sportId: basketball.id,
+          },
+        },
+        update: {
+          name: team.name,
+          shortName: team.shortName,
+          conference,
+          primaryColor: team.primaryColor,
+        },
+        create: {
+          name: team.name,
+          shortName: team.shortName,
+          abbreviation: team.abbreviation,
+          sportId: basketball.id,
+          conference,
+          primaryColor: team.primaryColor,
+        },
+      });
+      bballTeamCount++;
+    }
+    console.log(`Created ${teams.length} basketball teams for ${conference}`);
+  }
+  console.log(`Total basketball teams created: ${bballTeamCount}`);
+
+  // Create basketball games
+  const bballTeams = await prisma.team.findMany({
+    where: { sportId: basketball.id },
+  });
+
+  const bballTeamMap = new Map(bballTeams.map((t) => [t.abbreviation, t]));
+
+  for (const game of sampleBasketballGames) {
+    const homeTeam = bballTeamMap.get(game.home);
+    const awayTeam = bballTeamMap.get(game.away);
+
+    if (homeTeam && awayTeam) {
+      const gameId = `bball-${game.home}-${game.away}-${game.time}`;
+      await prisma.game.upsert({
+        where: { id: gameId },
+        update: {
+          homeScore: game.homeScore ?? null,
+          awayScore: game.awayScore ?? null,
+          status: game.homeScore ? "FINAL" : "SCHEDULED",
+        },
+        create: {
+          id: gameId,
+          sportId: basketball.id,
+          seasonId: basketballSeason.id,
+          homeTeamId: homeTeam.id,
+          awayTeamId: awayTeam.id,
+          gameTime: new Date(game.time),
+          week: 1,
+          venue: `${homeTeam.shortName} Arena`,
+          homeScore: game.homeScore ?? null,
+          awayScore: game.awayScore ?? null,
+          status: game.homeScore ? "FINAL" : "SCHEDULED",
+        },
+      });
+      const scoreInfo = game.homeScore ? ` (${game.awayScore}-${game.homeScore})` : "";
+      console.log(`Created basketball game: ${awayTeam.shortName} @ ${homeTeam.shortName}${scoreInfo}`);
+    }
+  }
+
+  console.log("\nSeed completed!");
 }
 
 main()

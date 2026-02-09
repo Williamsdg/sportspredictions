@@ -35,15 +35,14 @@ const conferences = [
   "Big Ten",
   "Big 12",
   "ACC",
+  "Big East",
   "American",
   "Mountain West",
-  "Sun Belt",
-  "MAC",
-  "C-USA",
-  "Independents",
+  "WCC",
+  "MVC",
 ];
 
-export default function FootballPicksPage() {
+export default function BasketballPicksPage() {
   const [games, setGames] = useState<Game[]>([]);
   const [picks, setPicks] = useState<Map<string, string>>(new Map());
   const [selectedConference, setSelectedConference] = useState("all");
@@ -58,7 +57,7 @@ export default function FootballPicksPage() {
   const fetchGames = async () => {
     try {
       const params = new URLSearchParams({
-        sport: "football",
+        sport: "basketball",
         week: "1",
       });
       if (selectedConference !== "all") {
@@ -76,7 +75,7 @@ export default function FootballPicksPage() {
 
   const fetchPicks = async () => {
     try {
-      const res = await fetch("/api/picks?sport=football&week=1");
+      const res = await fetch("/api/picks?sport=basketball&week=1");
       const data = await res.json();
       const pickMap = new Map<string, string>();
       data.picks?.forEach((pick: Pick) => {
@@ -160,13 +159,13 @@ export default function FootballPicksPage() {
         <div className="flex items-center justify-between mb-8">
           <div>
             <h1 className="text-3xl font-black text-white flex items-center gap-3">
-              <span className="text-4xl">🏈</span> College Football Picks
+              <span className="text-4xl">🏀</span> College Basketball Picks
             </h1>
-            <p className="text-zinc-400 mt-1">Week 1 - Select your winners</p>
+            <p className="text-zinc-400 mt-1">Select your winners</p>
           </div>
           <div className="text-right">
             <div className="text-sm text-zinc-500 uppercase tracking-wide">Your Picks</div>
-            <div className="text-2xl font-black text-orange-500">{picks.size} / {games.length}</div>
+            <div className="text-2xl font-black text-orange-500">{picks.size} / {games.filter(g => !isGameStarted(g.gameTime) || !g.homeScore).length}</div>
           </div>
         </div>
 
@@ -192,7 +191,7 @@ export default function FootballPicksPage() {
         {/* Games List */}
         {loading ? (
           <div className="text-center py-12">
-            <div className="text-4xl mb-4 animate-bounce">🏈</div>
+            <div className="text-4xl mb-4 animate-bounce">🏀</div>
             <p className="text-zinc-400">Loading games...</p>
           </div>
         ) : games.length === 0 ? (
