@@ -85,7 +85,12 @@ model Team {
   division     String?  // For basketball conferences with divisions
   logoUrl      String?
   primaryColor String?  // Hex color
+  wins         Int      @default(0)
+  losses       Int      @default(0)
+  ranking      Int?     // AP Top 25 ranking (null if unranked)
+  lastFive     String?  // "WWLWL" - last 5 game results
   createdAt    DateTime @default(now())
+  updatedAt    DateTime @default(now()) @updatedAt
 
   sport        Sport    @relation(fields: [sportId], references: [id])
   homeGames    Game[]   @relation("HomeTeam")
@@ -136,6 +141,8 @@ model Game {
   status      GameStatus @default(SCHEDULED)
   venue       String?
   isNeutral   Boolean    @default(false)  // Neutral site game
+  tvNetwork   String?    // ESPN, CBS, FOX, etc.
+  spread      Float?     // Point spread (positive = home favored)
   externalId  String?    @unique // ID from external API for syncing
   createdAt   DateTime   @default(now())
   updatedAt   DateTime   @updatedAt

@@ -148,3 +148,56 @@ export async function POST(request: Request) {
     );
   }
 }
+
+// Delete a pick (undo)
+export async function DELETE(request: Request) {
+  try {
+    const session = await auth();
+    if (!session?.user?.id) {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
+
+    const { gameId } = await request.json();
+
+    if (!gameId) {
+      return NextResponse.json(
+        { error: "Game ID is required" },
+        { status: 400 }
+      );
+    }
+
+    // Check if game hasn't started
+    const game = await prisma.game.findUnique({
+      where: { id: gameId },
+    });
+
+    if (!game) {
+      return NextResponse.json({ error: "Game not found" }, { status: 404 });
+    }
+
+    if (new Date() >= game.gameTime) {
+      return NextResponse.json(
+        { error: "Cannot undo after game has started" },
+        { status: 400 }
+      );
+    }
+
+    // Delete the pick
+    await prisma.pick.delete({
+      where: {
+        userId_gameId: {
+          userId: session.user.id,
+          gameId,
+        },
+      },
+    });
+
+    return NextResponse.json({ success: true });
+  } catch (error) {
+    console.error("Pick deletion error:", error);
+    return NextResponse.json(
+      { error: "Failed to delete pick" },
+      { status: 500 }
+    );
+  }
+}
