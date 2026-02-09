@@ -136,7 +136,7 @@ model Game {
   status      GameStatus @default(SCHEDULED)
   venue       String?
   isNeutral   Boolean    @default(false)  // Neutral site game
-  externalId  String?    // ID from external API for syncing
+  externalId  String?    @unique // ID from external API for syncing
   createdAt   DateTime   @default(now())
   updatedAt   DateTime   @updatedAt
 
@@ -148,6 +148,7 @@ model Game {
 
   @@index([sportId, seasonId, week])
   @@index([gameTime])
+  @@index([externalId])
 }
 
 // ============== PICKS ==============
